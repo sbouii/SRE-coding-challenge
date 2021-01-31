@@ -1,0 +1,29 @@
+version: '3'
+services:
+  client:
+    build: ./client
+    volumes:
+     - ./client:/app
+    environment:
+       CLIENT_TOTAL_REQUESTS: ${CLIENT_TOTAL_REQUESTS}
+       CLIENT_TOTAL_FAILURE_RETRIES: ${CLIENT_TOTAL_FAILURE_RETRIES}
+       CLIENT_BACKOFF_FACTOR: ${CLIENT_BACKOFF_FACTOR}
+    depends_on:
+     - server
+  server:
+    build: ./server
+    ports:
+     - "80"
+    volumes:
+     - ./server:/app
+    environment:
+       RATE_LIMIT: ${RATE_LIMIT}
+    depends_on:
+     - redis
+  redis:
+    image: "redis:alpine"
+    ports:
+     - "6379"
+networks:
+  backend:
+    driver: "bridge"
