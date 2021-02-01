@@ -4,7 +4,8 @@ kind: ConfigMap
 metadata:
   name: client-config
 data:
-  CLIENT_TOTAL_REQUESTS: "16"
+  #please add "" or '' for numbers
+  CLIENT_TOTAL_REQUESTS: "16" 
   CLIENT_TOTAL_FAILURE_RETRIES: "7"
   CLIENT_BACKOFF_FACTOR: "1"
 ---
