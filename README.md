@@ -49,13 +49,16 @@
   docker logs <client-container-id>
   ```
   With the following settings:
-
   RATE_LIMIT=5/10minute
+
   CLIENT_TOTAL_REQUESTS=7
+
   CLIENT_TOTAL_FAILURE_RETRIES=4
+
   CLIENT_BACKOFF_FACTOR=1
 
   The output is:
+
   ```
 DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): server:80
 DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
@@ -97,7 +100,9 @@ DEBUG:urllib3.connectionpool:Resetting dropped connection: server
 DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
 Failure retries limit is reached
   ```
+
 - To query prometheus metrics about the requests success and failure, you can get it from the client  or the server container:
+
   ```
   From the client container:
 
@@ -109,14 +114,19 @@ Failure retries limit is reached
   docker exec -it <server-container-id> ash
   curl http://localhost:80/metrics
   ```
+
   The most relevant metrics that you can use for estimating the rate limit are:
 
   - flask_http_request_total{method="GET",status="200"} : number of requests successfully served.
-  - flask_http_request_total{method="GET",status="429"} : number of failed requests due to rate limit  hit  
+
+  - flask_http_request_total{method="GET",status="429"} : number of failed requests due to rate limit  hit.
+
   - client_requests_total{address="client-address",status="200"}: number of requests successfully served for a specific client.
+
   - client_requests_total{address="client-address",status="429"}: number of failed requests due to rate limit hit for a specific client.
 
 #### Deploy with Kubernetes:
+
 - You can use the provided deployment manifests to run the application in a kubernetes cluster.
   It's a simple deployment solution that can be improved:
 
@@ -148,6 +158,7 @@ There are different ways to setup this application in a kubernetes cluster, the 
 
 3- Did you have to make any shortcuts, and how would you resolve them?
 TO DO
+
 4- How would you want to extend this implementation of either the service or
 the client in the future?
 
