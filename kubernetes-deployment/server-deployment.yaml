@@ -4,9 +4,6 @@ kind: ConfigMap
 metadata:
   name: server-config
 data:
-  #please add "" or '' for numbers
-  REDIS_HOST: redis
-  REDIS_PORT: "6379"
   RATE_LIMIT: 10/10minute
 ---
 apiVersion: apps/v1

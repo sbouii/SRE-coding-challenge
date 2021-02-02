@@ -11,7 +11,7 @@ def main():
    s.mount('http://', HTTPAdapter(max_retries=retries))
    for i in range(1, int(os.environ['CLIENT_TOTAL_REQUESTS'])):
     try:
-      r = s.get("http://server:80")
+      r = s.get("http://server:80/")
       print(r.text)
     except requests.exceptions.RetryError:
       print ("Failure retries limit is reached")
