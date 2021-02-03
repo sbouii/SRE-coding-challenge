@@ -49,6 +49,7 @@
   docker logs <client-container-id>
   ```
   With the following settings:
+
   RATE_LIMIT=5/10minute
 
   CLIENT_TOTAL_REQUESTS=7
@@ -157,7 +158,8 @@ There are different ways to setup this application in a kubernetes cluster, the 
   - If we configure the server/client to receive/send many requests, we can expect failures due to resources (cpu/memory) limit hit. In this case, we can think of enabling horizontal autoscaling: spin up a new server/client whenever we hit a specifc amount of resources usage or the vertical autoscaling: add more resources (cpu/memory) to the server/client, but this requires the pod restart.
 
 3- Did you have to make any shortcuts, and how would you resolve them?
-TO DO
+
+For the server, I didn't implement it from scratch using some tools or libraries instead I used a ready-to-use HTTP framework (Flask) and I took advantages of the features that it provides for configuring the rate limit and exposing prometheus metrics.
 
 4- How would you want to extend this implementation of either the service or
 the client in the future?
@@ -170,7 +172,8 @@ From the server side, we can add other Flask routes that use the same web server
 
 Except the stretch goals that I have already implemented in my solution, I wanted to work on adding some prometheus alerts whenever a client hits the rate limit for a specific number of times.
 
-TO DO: client_requests_total{address="client-address",status="429"}
+We can use the prometheus metric client_requests_total{address="client-address",status="429"} to point out the number of failed requests due to rate limit hit for a specific client, and configure an alert that is triggered whenever this number is above a specific value.
 
 Also I wanted to define the SLI and SLO of the service:
+
 As SLO, I suggest 99.5% of client requests who hit the rate limit receive the correct response from the server. For the associated SLIs, we can think of error rate in the server logs or number of HTTP responses with status code different from 429 or 200.
