@@ -116,30 +116,30 @@ Failure retries limit is reached
   curl http://localhost:80/metrics
   ```
 
-  The most relevant metrics that you can use for estimating the rate limit are:
+The most relevant metrics that you can use for estimating the rate limit are:
 
-  - flask_http_request_total{method="GET",status="200"} : number of requests successfully served.
+- flask_http_request_total{method="GET",status="200"} : number of requests successfully served.
 
-  - flask_http_request_total{method="GET",status="429"} : number of failed requests due to rate limit  hit.
+- flask_http_request_total{method="GET",status="429"} : number of failed requests due to rate limit  hit.
 
-  - client_requests_total{address="client-address",status="200"}: number of requests successfully served for a specific client.
+- client_requests_total{address="client-address",status="200"}: number of requests successfully served for a specific client.
 
-  - client_requests_total{address="client-address",status="429"}: number of failed requests due to rate limit hit for a specific client.
+- client_requests_total{address="client-address",status="429"}: number of failed requests due to rate limit hit for a specific client.
 
 #### Deploy with Kubernetes:
 
 - You can use the provided deployment manifests to run the application in a kubernetes cluster.
   It's a simple deployment solution that can be improved:
 
-   - The server, the client and Redis are deployed as separate pods.
+  - The server, the client and Redis are deployed as separate pods.
 
-   - Each of the server and the client has a configmap where you can change their settings using environment variables.
+  - Each of the server and the client has a configmap where you can change their settings using environment variables.
 
-   - The client and the server docker images are already built and pushed to docker hub, you can built them locally and push to your private docker registry for security reasons, just update the deployment manifests with the correct docker image name.
+  - The client and the server docker images are already built and pushed to docker hub, you can built them locally and push to your private docker registry for security reasons, just update the deployment manifests with the correct docker image name.
 
-   - You have the ability to scale up the number of client pods.
+  - You have the ability to scale up the number of client pods.
 
-   - The server response and the prometheus metrics can be fetched from the client container.
+  - The server response and the prometheus metrics can be fetched from the client container.
 
 ### Questions:
 
