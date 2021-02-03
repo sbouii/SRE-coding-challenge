@@ -37,17 +37,23 @@
   ```
 
 - Build and start the containers with Docker-compose:
+
   ```
   docker-compose up -d
   ```
+
   If you want to run multiple clients at the same time in order to multiply the requests sent to the server, you can scale up the number of clients:
+
   ```
   docker-compose up --scale client=4 -d
   ```  
+
 - You can check the server response for your client requests from the client's container logs:
+
   ```
   docker logs <client-container-id>
   ```
+
   With the following settings:
 
   RATE_LIMIT=5/10minute
@@ -61,45 +67,45 @@
   The output is:
 
   ```
-DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): server:80
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
-{"message":"hello world!"}
+  DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): server:80
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
+  {"message":"hello world!"}
 
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
-{"message":"hello world!"}
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
+  {"message":"hello world!"}
 
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
-{"message":"hello world!"}
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
+  {"message":"hello world!"}
 
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
-{"message":"hello world!"}
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
+  {"message":"hello world!"}
 
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
-{"message":"hello world!"}
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 200 27
+  {"message":"hello world!"}
 
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
-DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=3, connect=None, read=None, redirect=None, status=None)
-DEBUG:urllib3.connectionpool:Retry: /
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
-DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
-DEBUG:urllib3.connectionpool:Retry: /
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
-DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
-DEBUG:urllib3.connectionpool:Retry: /
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
-DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
-DEBUG:urllib3.connectionpool:Retry: /
-DEBUG:urllib3.connectionpool:Resetting dropped connection: server
-DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
-Failure retries limit is reached
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
+  DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=3, connect=None, read=None, redirect=None, status=None)
+  DEBUG:urllib3.connectionpool:Retry: /
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
+  DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=2, connect=None, read=None, redirect=None, status=None)
+  DEBUG:urllib3.connectionpool:Retry: /
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
+  DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+  DEBUG:urllib3.connectionpool:Retry: /
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
+  DEBUG:urllib3.util.retry:Incremented Retry for (url='/'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+  DEBUG:urllib3.connectionpool:Retry: /
+  DEBUG:urllib3.connectionpool:Resetting dropped connection: server
+  DEBUG:urllib3.connectionpool:http://server:80 "GET / HTTP/1.1" 429 143
+  Failure retries limit is reached
   ```
 
 - To query prometheus metrics about the requests success and failure, you can get it from the client  or the server container:
